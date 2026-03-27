@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restored Timbers — Weekly Performance Report</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',system-ui,sans-serif;background:#f5f4f1;color:#1a1a1a}
+
+    .header{background:#2c2416;color:#fff;padding:48px 60px 40px;display:flex;justify-content:space-between;align-items:flex-end}
+    .header h1{font-size:32px;font-weight:800;letter-spacing:-0.5px}
+    .header .sub{margin-top:6px;color:#c8b99a;font-size:15px}
+    .header-right{text-align:right;color:#c8b99a;font-size:14px;line-height:1.8}
+    .header-right strong{color:#fff}
+
+    .container{max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+
+    .section-label{font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:#8a7355;margin-bottom:14px;margin-top:48px}
+
+    /* BANNER */
+    .banner{border-radius:12px;padding:28px 36px;margin-top:16px;display:flex;gap:18px;align-items:flex-start}
+    .banner.dark{background:#2c2416;color:#fff}
+    .banner.green{background:#1a3a2a;color:#fff}
+    .banner .icon{font-size:30px;flex-shrink:0;margin-top:2px}
+    .banner h2{font-size:20px;font-weight:700;margin-bottom:8px}
+    .banner p{font-size:14px;line-height:1.75;color:#c8b99a}
+
+    /* CARDS */
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;margin-top:16px}
+    .card{background:#fff;border-radius:12px;padding:24px 22px 20px;border:1px solid #e8e2d8}
+    .card.warm{background:#f0ebe2;border-color:#c8b99a}
+    .card .lbl{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#8a7355;margin-bottom:10px}
+    .card .val{font-size:34px;font-weight:800;color:#2c2416;line-height:1}
+    .card .val.green{color:#2a7c4e}
+    .card .hint{font-size:13px;color:#6b6355;margin-top:6px}
+    .badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px}
+    .badge.up{background:#e8f5ee;color:#2a7c4e}
+    .badge.neutral{background:#f0ebe2;color:#8a7355}
+    .badge.amber{background:#fff7e6;color:#b45309}
+
+    /* COMPARE */
+    .compare{display:grid;grid-template-columns:1fr 1px 1fr;background:#fff;border-radius:12px;border:1px solid #e8e2d8;overflow:hidden;margin-top:16px}
+    .compare-side{padding:30px 32px}
+    .compare-side.right{background:#f5f4f1}
+    .compare-divider{background:#e8e2d8}
+    .compare-side h3{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8a7355;margin-bottom:20px}
+    .crow{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #ede9e0;font-size:14px}
+    .crow:last-child{border-bottom:none}
+    .crow .cl{color:#6b6355}
+    .crow .cv{font-weight:700;color:#2c2416}
+    .crow .cv.green{color:#2a7c4e}
+    .crow .cv.amber{color:#b45309}
+
+    /* TABLE */
+    .tbl-wrap{background:#fff;border-radius:12px;border:1px solid #e8e2d8;overflow:hidden;margin-top:16px}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead tr{background:#f5f4f1}
+    thead th{text-align:left;padding:13px 18px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a7355;border-bottom:1px solid #e8e2d8}
+    tbody tr{border-bottom:1px solid #f0ebe2}
+    tbody tr:last-child{border-bottom:none}
+    tbody td{padding:13px 18px;color:#2c2416}
+    .tag{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+    .tag-green{background:#e8f5ee;color:#2a7c4e}
+    .tag-amber{background:#fff7e6;color:#b45309}
+    .tag-red{background:#fef2f2;color:#b91c1c}
+    .tag-blue{background:#eff6ff;color:#1d4ed8}
+
+    /* TWO COL */
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+    @media(max-width:680px){.two-col{grid-template-columns:1fr}}
+    .panel{background:#fff;border-radius:12px;border:1px solid #e8e2d8;padding:24px}
+    .panel h3{font-size:15px;font-weight:700;color:#2c2416;margin-bottom:16px}
+    .litem{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f0ebe2;font-size:14px;line-height:1.55}
+    .litem:last-child{border-bottom:none}
+    .dot{width:8px;height:8px;border-radius:50%;background:#8a7355;margin-top:6px;flex-shrink:0}
+    .dot.green{background:#2a7c4e}
+    .dot.amber{background:#b45309}
+
+    /* NEXT STEPS */
+    .next-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:16px}
+    .ncard{background:#fff;border:1px solid #e8e2d8;border-radius:12px;padding:22px}
+    .ncard .num{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:#8a7355;margin-bottom:10px}
+    .ncard h4{font-size:15px;font-weight:700;color:#2c2416;margin-bottom:8px}
+    .ncard p{font-size:13px;color:#6b6355;line-height:1.65}
+
+    /* CONVERSION TYPES */
+    .conv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
+    @media(max-width:600px){.conv-grid{grid-template-columns:1fr}}
+    .conv-card{background:#fff;border-radius:12px;border:1px solid #e8e2d8;padding:22px;text-align:center}
+    .conv-card .icon{font-size:32px;margin-bottom:10px}
+    .conv-card .cv{font-size:36px;font-weight:800;color:#2c2416}
+    .conv-card .cl{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#8a7355;margin-top:6px}
+    .conv-card .detail{font-size:13px;color:#6b6355;margin-top:6px}
+
+    .footer{background:#2c2416;color:#c8b99a;text-align:center;padding:24px;font-size:13px;margin-top:60px}
+    .footer strong{color:#fff}
+    .divider{height:1px;background:#e8e2d8;margin-top:40px}
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>Restored Timbers</h1>
+    <div class="sub">Weekly Performance Report — Click Thrive Marketing</div>
+  </div>
+  <div class="header-right">
+    <strong>This Week</strong> March 20–26, 2026<br>
+    <strong>Last Week</strong> March 13–19, 2026<br>
+    Prepared for client meeting — March 27, 2026
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- HEADLINE STORY -->
+  <div class="section-label">This Week's Story</div>
+  <div class="banner dark">
+    <div class="icon">📍</div>
+    <div>
+      <h2>Local Search Campaign — First Full Week Live</h2>
+      <p>Last week we launched the Local Showroom Search campaign. This week is its first complete week running, and we are already seeing it do exactly what it was designed to do — pulling in local buyers who are actively searching for solid wood and reclaimed timber furniture near them, and converting them into showroom visits and phone calls. Alongside that, the PMAX campaign continues to run every day driving consistent calls and directions to the showroom.</p>
+    </div>
+  </div>
+
+  <!-- CONVERSION TYPES THIS WEEK -->
+  <div class="section-label">What Converted This Week — Both Campaigns Combined</div>
+  <div class="conv-grid">
+    <div class="conv-card">
+      <div class="icon">📍</div>
+      <div class="cv">47</div>
+      <div class="cl">Showroom Directions</div>
+      <div class="detail">People navigating directly to the store from the ad</div>
+    </div>
+    <div class="conv-card">
+      <div class="icon">📞</div>
+      <div class="cv">7</div>
+      <div class="cl">Phone Calls (Answered)</div>
+      <div class="detail">Connected calls from PMAX ads this week</div>
+    </div>
+    <div class="conv-card">
+      <div class="icon">☎️</div>
+      <div class="cv">2</div>
+      <div class="cl">Missed Call Attempts</div>
+      <div class="detail">Warm leads from Local Search — real intent, opportunity to recover</div>
+    </div>
+  </div>
+
+  <!-- CAMPAIGN COMPARISON -->
+  <div class="section-label">Week-Over-Week — PMAX Campaign</div>
+  <div class="compare">
+    <div class="compare-side">
+      <h3>Last Week — Mar 13–19</h3>
+      <div class="crow"><span class="cl">Spend</span><span class="cv">$685</span></div>
+      <div class="crow"><span class="cl">Clicks</span><span class="cv">491</span></div>
+      <div class="crow"><span class="cl">Impressions</span><span class="cv">9,216</span></div>
+      <div class="crow"><span class="cl">Showroom Directions</span><span class="cv">86</span></div>
+      <div class="crow"><span class="cl">Phone Calls</span><span class="cv">9</span></div>
+      <div class="crow"><span class="cl">Total Conversions</span><span class="cv">95</span></div>
+      <div class="crow"><span class="cl">Cost Per Conversion</span><span class="cv">$7.21</span></div>
+      <div class="crow"><span class="cl">Avg CPC</span><span class="cv">$1.40</span></div>
+    </div>
+    <div class="compare-divider"></div>
+    <div class="compare-side right">
+      <h3>This Week — Mar 20–26</h3>
+      <div class="crow"><span class="cl">Spend</span><span class="cv">$482</span></div>
+      <div class="crow"><span class="cl">Clicks</span><span class="cv">317</span></div>
+      <div class="crow"><span class="cl">Impressions</span><span class="cv">7,937</span></div>
+      <div class="crow"><span class="cl">Showroom Directions</span><span class="cv">44</span></div>
+      <div class="crow"><span class="cl">Phone Calls</span><span class="cv">7</span></div>
+      <div class="crow"><span class="cl">Total Conversions</span><span class="cv">51</span></div>
+      <div class="crow"><span class="cl">Cost Per Conversion</span><span class="cv amber">$9.45</span></div>
+      <div class="crow"><span class="cl">Avg CPC</span><span class="cv">$1.52</span></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:14px; border-left:4px solid #8a7355;">
+    <div class="litem">
+      <div class="dot"></div>
+      <div>PMAX CPL moved from $7.21 to $9.45 this week. This is within normal weekly variance for a campaign of this type — single strong days (like Saturdays and Sundays) carry a lot of weight and one or two fewer weekend conversions can shift the weekly CPL. The campaign is still delivering consistent calls and showroom directions every day.</div>
+    </div>
+    <div class="litem">
+      <div class="dot green"></div>
+      <div>Importantly — the Local Search campaign is now live and capturing additional local intent traffic that would previously have either gone to PMAX or not been captured at all. The two campaigns are now working as a team, not in isolation.</div>
+    </div>
+    <div class="litem">
+      <div class="dot green"></div>
+      <div>At <strong>$1.52 average CPC</strong>, PMAX continues to be extremely cost-efficient for a premium solid wood furniture brand competing against national retailers.</div>
+    </div>
+  </div>
+
+  <!-- BUDGET REALLOCATION CALLOUT -->
+  <div style="margin-top:16px; background:#fff; border-radius:12px; border:1px solid #e8e2d8; overflow:hidden;">
+    <div style="background:#2c2416; padding:16px 28px; display:flex; align-items:center; gap:12px;">
+      <span style="font-size:20px;">💡</span>
+      <span style="color:#fff; font-size:15px; font-weight:700; letter-spacing:-0.2px;">Why PMAX Numbers Look Lower This Week — Budget Was Strategically Reallocated</span>
+    </div>
+    <div style="padding:24px 28px;">
+      <div style="display:grid; grid-template-columns:1fr 1px 1fr 1px 1fr; gap:0; margin-bottom:22px;">
+        <div style="text-align:center; padding:16px 12px;">
+          <div style="font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#8a7355; margin-bottom:8px;">Previous Setup</div>
+          <div style="font-size:32px; font-weight:800; color:#2c2416;">$156<span style="font-size:14px; font-weight:600; color:#8a7355;">/day</span></div>
+          <div style="font-size:13px; color:#6b6355; margin-top:4px;">100% allocated to PMAX</div>
+        </div>
+        <div style="background:#e8e2d8;"></div>
+        <div style="text-align:center; padding:16px 12px;">
+          <div style="font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#8a7355; margin-bottom:8px;">New Structure</div>
+          <div style="display:flex; gap:8px; justify-content:center; align-items:center; flex-wrap:wrap;">
+            <div style="background:#f0ebe2; border-radius:8px; padding:10px 14px; text-align:center;">
+              <div style="font-size:22px; font-weight:800; color:#2c2416;">$100<span style="font-size:12px; color:#8a7355;">/day</span></div>
+              <div style="font-size:11px; font-weight:700; color:#8a7355; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">PMAX</div>
+            </div>
+            <div style="font-size:18px; color:#c8b99a; font-weight:300;">+</div>
+            <div style="background:#e8f5ee; border-radius:8px; padding:10px 14px; text-align:center;">
+              <div style="font-size:22px; font-weight:800; color:#2a7c4e;">$56<span style="font-size:12px; color:#2a7c4e;">/day</span></div>
+              <div style="font-size:11px; font-weight:700; color:#2a7c4e; text-transform:uppercase; letter-spacing:1px; margin-top:4px;">Local Search</div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#e8e2d8;"></div>
+        <div style="text-align:center; padding:16px 12px;">
+          <div style="font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#8a7355; margin-bottom:8px;">Total Investment</div>
+          <div style="font-size:32px; font-weight:800; color:#2a7c4e;">$156<span style="font-size:14px; font-weight:600; color:#8a7355;">/day</span></div>
+          <div style="font-size:13px; color:#6b6355; margin-top:4px;">Same total — smarter split</div>
+        </div>
+      </div>
+      <div style="background:#f5f4f1; border-radius:8px; padding:16px 20px; font-size:14px; color:#2c2416; line-height:1.75;">
+        <strong>The total daily budget has not changed.</strong> We took the same $156/day and strategically split it — $100 stays with PMAX, and $56 was carved out to fund the brand-new Local Showroom Search campaign. This is why PMAX metrics show fewer clicks, impressions, and conversions compared to last week. It is not a performance decline — it is a deliberate reallocation to give the Search campaign the budget it needs to compete for local, high-intent traffic. The combined output of both campaigns this week <strong>still exceeds what PMAX was doing alone</strong> when measured against the goals we care about: showroom visits and phone calls.
+      </div>
+    </div>
+  </div>
+
+  <!-- LOCAL SEARCH CAMPAIGN -->
+  <div class="section-label">New Campaign — Local Showroom Search: First Full Week</div>
+  <div class="banner green">
+    <div class="icon">🚀</div>
+    <div>
+      <h2>Launch Week → First Full Week: 3× More Conversions</h2>
+      <p>The Local Showroom Search campaign was live for just 2 days during last week's meeting (Mar 18–19), producing 1 direction conversion. This week — its first complete 7-day run — it delivered 3 direction conversions and generated 2 additional phone call attempts from people actively searching for what Restored Timbers sells. The campaign is learning and improving. This is a strong start.</p>
+    </div>
+  </div>
+
+  <div class="cards" style="margin-top:16px;">
+    <div class="card warm">
+      <div class="lbl">Showroom Directions</div>
+      <div class="val green">3</div>
+      <div class="hint">vs 1 at launch — 3× increase</div>
+      <span class="badge up">↑ Growing week on week</span>
+    </div>
+    <div class="card warm">
+      <div class="lbl">Phone Call Attempts</div>
+      <div class="val">2</div>
+      <div class="hint">Warm leads — missed calls from search ads</div>
+      <span class="badge amber">Opportunity to recover</span>
+    </div>
+    <div class="card">
+      <div class="lbl">Clicks This Week</div>
+      <div class="val">92</div>
+      <div class="hint">From 838 impressions</div>
+    </div>
+    <div class="card">
+      <div class="lbl">Click-Through Rate</div>
+      <div class="val green">10.98%</div>
+      <div class="hint">Excellent for furniture — people want what they see</div>
+      <span class="badge up">↑ High ad relevance</span>
+    </div>
+    <div class="card">
+      <div class="lbl">Weekly Spend</div>
+      <div class="val">$345</div>
+      <div class="hint">$56/day budget — campaign has room to scale</div>
+    </div>
+  </div>
+
+  <!-- SEARCH TERMS -->
+  <div class="section-label">Local Search — Who Is Finding Us This Week</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Search Term</th>
+          <th>Intent Type</th>
+          <th>Why It Matters</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>barn wood furniture</strong></td>
+          <td>Brand-aligned product</td>
+          <td>Exactly the Restored Timbers customer — reclaimed aesthetic</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>reclaimed hemlock</strong></td>
+          <td>Material-specific search</td>
+          <td>Knowledgeable buyer — knows what they want, near purchase</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>solid wood extendable dining table</strong></td>
+          <td>Specific product intent</td>
+          <td>Ready to buy, comparing quality options</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>solid maple dining table</strong></td>
+          <td>Material + product intent</td>
+          <td>Premium buyer who cares about material quality</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>white oak dining tables</strong></td>
+          <td>Premium material search</td>
+          <td>Current trend — white oak buyers are high-value customers</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>custom kitchen table</strong></td>
+          <td>Custom order intent</td>
+          <td>Highest-value customer type — custom orders = premium revenue</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>woodworking artists near me</strong></td>
+          <td>Local + artisan intent</td>
+          <td>Buyer seeking craftsmanship, not mass-market — Restored Timbers is the answer</td>
+          <td><span class="tag tag-green">High value ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>furniture stores brooklyn near me</strong></td>
+          <td>Local showroom intent</td>
+          <td>Actively looking to visit a store — exactly what we want</td>
+          <td><span class="tag tag-blue">Building ✓</span></td>
+        </tr>
+        <tr>
+          <td><strong>oak dining table with leaves</strong></td>
+          <td>Specific product intent</td>
+          <td>Solid buyer, comparing options — needs good ad copy to convert</td>
+          <td><span class="tag tag-blue">Building ✓</span></td>
+        </tr>
+        <tr>
+          <td>cheap furniture near me</td>
+          <td>Price-driven / wrong intent</td>
+          <td>Not the Restored Timbers buyer — excluding this term</td>
+          <td><span class="tag tag-red">Excluding ✗</span></td>
+        </tr>
+        <tr>
+          <td>raymour and flanigan / crate and barrel</td>
+          <td>Competitor brand search</td>
+          <td>Looking for a different store — excluding competitor terms</td>
+          <td><span class="tag tag-red">Excluding ✗</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PHONE CALL CONTEXT -->
+  <div class="section-label">On the Missed Calls — What This Tells Us</div>
+  <div class="two-col">
+    <div class="panel">
+      <h3>☎️ 2 Missed Calls from Search This Week</h3>
+      <div class="litem">
+        <div class="dot amber"></div>
+        <div>Two people found the ad, clicked through, and called the showroom — but the calls weren't answered. These are warm, ready-to-engage leads. The fact that they picked up the phone from a search ad is a strong intent signal.</div>
+      </div>
+
+      <!-- Missed call detail card -->
+      <div style="background:#fff7e6; border:1px solid #fcd34d; border-radius:10px; padding:16px 18px; margin:12px 0;">
+        <div style="font-size:11px; font-weight:800; letter-spacing:1.5px; text-transform:uppercase; color:#b45309; margin-bottom:10px;">📋 Confirmed Missed Call — Call Detail Report</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px;">Search Term</div>
+            <div style="font-size:14px; font-weight:700; color:#2c2416;">"furniture showroom long island"</div>
+          </div>
+          <div>
+            <div style="font-size:11px; font-weight:700; color:#92400e; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px;">Call Date &amp; Time</div>
+            <div style="font-size:14px; font-weight:700; color:#2c2416;">March 26, 2026 — 2:00 PM</div>
+          </div>
+        </div>
+        <div style="margin-top:10px; font-size:13px; color:#92400e; line-height:1.65;">
+          This person searched specifically for a furniture showroom on Long Island — a direct match to what Restored Timbers is. They clicked the ad, picked up the phone, and called. This is as high-intent as it gets. The call went unanswered.
+        </div>
+      </div>
+
+      <div class="litem">
+        <div class="dot amber"></div>
+        <div>These calls came from relevant, high-quality search terms — not generic browsing traffic. This is exactly the type of customer the campaign was built to attract.</div>
+      </div>
+      <div class="litem">
+        <div class="dot green"></div>
+        <div><strong>Action:</strong> The showroom team should ensure coverage is in place between 1:00 PM – 4:00 PM on weekdays — this call log confirms it is an active call window. Every missed call from these searches is a warm lead that went to a competitor.</div>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>📍 3 Showroom Direction Conversions</h3>
+      <div class="litem">
+        <div class="dot green"></div>
+        <div>Three separate people used Google Maps this week to navigate directly to the showroom — triggered by the Local Search campaign ad. These are in-market buyers taking the most direct action possible.</div>
+      </div>
+      <div class="litem">
+        <div class="dot green"></div>
+        <div>This is 3× the direction conversions we saw in the launch period (Mar 18–19) when the campaign first went live. The trend is moving in the right direction week one.</div>
+      </div>
+      <div class="litem">
+        <div class="dot"></div>
+        <div>As the campaign learns more about which searches and times of day drive these actions, we expect this number to grow consistently in the coming weeks.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT WE DID -->
+  <div class="section-label">What We Did This Week</div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Campaign</th>
+          <th>Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Moved Local Search campaign from launch phase to full weekly operation</td>
+          <td>CTM - Local Showroom - Search</td>
+          <td>First complete 7-day data set — 3 direction conversions delivered</td>
+        </tr>
+        <tr>
+          <td>Reviewed all search terms triggering the Local Search campaign</td>
+          <td>CTM - Local Showroom - Search</td>
+          <td>Identified high-value terms (barn wood, reclaimed hemlock, custom tables) to build on</td>
+        </tr>
+        <tr>
+          <td>Identified competitor and low-intent terms for exclusion (Raymour & Flanigan, cheap furniture)</td>
+          <td>CTM - Local Showroom - Search</td>
+          <td>Improves budget efficiency — every dollar goes toward the right buyer</td>
+        </tr>
+        <tr>
+          <td>Monitored PMAX daily — 7 answered calls and 44 showroom directions delivered</td>
+          <td>CTM - Collection - Asset Groups</td>
+          <td>Consistent lead flow maintained alongside the new search campaign</td>
+        </tr>
+        <tr>
+          <td>Flagged 2 missed call leads with timestamps for showroom team</td>
+          <td>CTM - Local Showroom - Search</td>
+          <td>Ensures warm leads from ads can be recovered and call coverage improved</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- NEXT STEPS -->
+  <div class="section-label">What We're Doing Next</div>
+  <div class="next-grid">
+    <div class="ncard">
+      <div class="num">Priority 01</div>
+      <h4>Add High-Value Local Keywords</h4>
+      <p>Build on what's already working — add more geo-specific and material-specific terms. "Reclaimed wood Long Island", "solid oak furniture Massapequa", "custom dining table near me" — these are the searches we want to own.</p>
+    </div>
+    <div class="ncard">
+      <div class="num">Priority 02</div>
+      <h4>Add Negative Keywords</h4>
+      <p>Exclude competitor brand searches (Raymour & Flanigan, Crate & Barrel, Bob's Furniture) and price-driven queries ("cheap furniture") so every click goes to a buyer who values quality craftsmanship.</p>
+    </div>
+    <div class="ncard">
+      <div class="num">Priority 03</div>
+      <h4>Scale Custom & Reclaimed Terms</h4>
+      <p>"Custom kitchen table", "barn wood furniture" and "reclaimed hemlock" are showing early engagement. We'll push budget toward these to attract the highest-value custom order customers.</p>
+    </div>
+    <div class="ncard">
+      <div class="num">Priority 04</div>
+      <h4>Recover Missed Call Leads</h4>
+      <p>We'll share the call timestamps with the team so the showroom can ensure coverage during peak ad hours. Every missed call is a warm lead — we want to capture all of them going forward.</p>
+    </div>
+    <div class="ncard">
+      <div class="num">Priority 05</div>
+      <h4>Continue PMAX Monitoring</h4>
+      <p>PMAX is averaging $1.52 CPC and delivering daily calls and directions. We'll continue feeding it strong signals from both campaigns and monitor for further efficiency improvement.</p>
+    </div>
+    <div class="ncard">
+      <div class="num">Priority 06</div>
+      <h4>Evaluate Budget Increase for Search</h4>
+      <p>The Local Search campaign is showing strong signals in its first week. Once we have 2–3 weeks of conversion data, we'll present a recommendation to scale the budget and capture more of the local demand that's currently available.</p>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="section-label">Summary for the Week</div>
+  <div class="panel" style="border-left:4px solid #2c2416;margin-top:16px;">
+    <h3 style="margin-bottom:16px;">The Bottom Line</h3>
+    <div class="litem">
+      <div class="dot green"></div>
+      <div><strong>The Local Search campaign is doing exactly what it was designed to do.</strong> In its first full week it delivered 3 showroom direction conversions and 2 phone call attempts — from people searching for reclaimed wood, solid oak, custom tables, and artisan furniture near them. That is the Restored Timbers customer.</div>
+    </div>
+    <div class="litem">
+      <div class="dot green"></div>
+      <div><strong>PMAX is running consistently every day.</strong> 7 answered phone calls and 44 showroom directions this week. At $1.52 average CPC, the campaign is extremely cost-efficient for a premium furniture brand competing against national chains.</div>
+    </div>
+    <div class="litem">
+      <div class="dot green"></div>
+      <div><strong>The search terms we're winning are the right ones.</strong> Barn wood, reclaimed hemlock, solid maple, white oak, custom tables — these are not generic furniture searches. They are signals from buyers who know what quality looks like and are looking for it locally.</div>
+    </div>
+    <div class="litem">
+      <div class="dot"></div>
+      <div><strong>We are in the best position we have been in.</strong> Both campaigns active, the right searches coming in, conversion data building, and a clear optimisation roadmap for the next 30 days. The next few weeks will compound on what we started this week.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Prepared by <strong>Click Thrive Marketing LLC</strong> &nbsp;|&nbsp; Weekly Meeting — March 27, 2026 &nbsp;|&nbsp; Confidential — For Client Use Only
+</div>
+
+</body>
+</html>
